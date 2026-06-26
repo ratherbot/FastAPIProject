@@ -39,9 +39,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth_router, prefix=settings.API_V1_STR, tags=["auth"])
-app.include_router(tasks_router, prefix=settings.API_V1_STR, tags=["tasks"])
-app.include_router(projects_router, prefix=settings.API_V1_STR, tags=["projects"])
+app.include_router(auth_router, prefix=settings.API_V1_STR)
+app.include_router(tasks_router, prefix=settings.API_V1_STR)
+app.include_router(projects_router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 def root():

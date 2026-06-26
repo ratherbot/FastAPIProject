@@ -3,6 +3,8 @@ import { useAuthStore } from './store/authStore'
 
 import { LoginPage } from './pages/Login.tsx'
 import { RegisterPage } from './pages/Register'
+import { ProjectsPage } from './pages/Projects'
+import { ProjectDetailPage } from './pages/ProjectDetail'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const token = useAuthStore((state) => state.token)
@@ -20,18 +22,25 @@ function App() {
       <Routes>
         <Route path="/login" element={!token ? <LoginPage /> : <Navigate to="/projects" replace />} />
         <Route path="/register" element={!token ? <RegisterPage /> : <Navigate to="/projects" replace />} />
+
         <Route
           path="/projects"
           element={
             <ProtectedRoute>
-              <div style={{ padding: '20px' }}>
-                <h1>Мои Проекты</h1>
-                <p>Тут скоро будет список проектов и тасок!</p>
-                <button onClick={() => useAuthStore.getState().logout()}>Выйти</button>
-              </div>
+              <ProjectsPage />
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/projects/:projectId"
+          element={
+            <ProtectedRoute>
+              <ProjectDetailPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path="*" element={<Navigate to="/projects" replace />} />
       </Routes>
     </div>

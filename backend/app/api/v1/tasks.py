@@ -19,12 +19,12 @@ async def get_tasks(
     offset: int = 0,
     search: Optional[str] = None,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user)  # <-- Защита
+    current_user: User = Depends(get_current_user)
 ):
     """Получить список задач (только из проектов текущего пользователя)"""
     return await TaskService.get_all(
         db,
-        owner_id=current_user.id,  # <-- Передаем хозяина
+        owner_id=current_user.id,
         project_id=project_id,
         status=status,
         limit=limit,
@@ -45,7 +45,7 @@ async def create_task(
 async def get_task(
     task_id: int,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user)  # <-- Защита
+    current_user: User = Depends(get_current_user)
 ):
     """Получить задачу по ID (только если проект твой)"""
     task = await TaskService.get_by_id(db, task_id, owner_id=current_user.id)
@@ -58,7 +58,7 @@ async def update_task(
     task_id: int,
     task_in: TaskUpdate,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user)  # <-- Защита
+    current_user: User = Depends(get_current_user)
 ):
     """Обновить задачу (только в своем проекте)"""
     updated_task = await TaskService.update(db, task_id, task_in, owner_id=current_user.id)

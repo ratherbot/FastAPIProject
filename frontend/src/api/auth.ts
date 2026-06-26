@@ -7,7 +7,7 @@ export const authApi = {
     formData.append('username', data.email);
     formData.append('password', data.password);
 
-    const response = await api.post<TokenResponse>('/api/v1/login', formData, {
+    const response = await api.post<TokenResponse>('/login', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -16,7 +16,8 @@ export const authApi = {
   },
 
   register: async (data: RegisterData): Promise<void> => {
-    await api.post('/api/v1/users', {
+    await api.post('/register', {
+      username: data.email,
       email: data.email,
       password: data.password,
       is_active: true

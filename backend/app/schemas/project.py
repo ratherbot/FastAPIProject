@@ -18,6 +18,10 @@ class ProjectUpdate(ProjectBase):
 
 class ProjectResponse(ProjectBase):
     id: int
-    tasks: List[TaskResponse] = []
+    owner_id: int
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class ProjectDetailResponse(ProjectResponse):
+    tasks: List[TaskResponse] = []
